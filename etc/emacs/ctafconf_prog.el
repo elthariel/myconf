@@ -265,6 +265,11 @@
 (dolist (hook (list 'c-mode-common-hook 'emacs-lisp-mode-hook 'java-mode-hook 'lisp-mode-hook 'perl-mode-hook 'sh-mode-hook 'python-mode-hook))
   (add-hook hook 'hideshowvis-enable))
 
+
+;; Lta's Ruby and Rails config
+(require 'haml-mode)
+(require 'coffee-mode)
+
 ;;Display potential error in red
 ;;PS: check for: if (bla);   and if (bla = bla)
 ;;conflict with new emacs (24.0.50 git)

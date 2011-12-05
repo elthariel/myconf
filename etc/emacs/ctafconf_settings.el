@@ -64,8 +64,8 @@
 (if (or running-on-x
         running-on-windows)
     (progn
-      (menu-bar-mode   t)
-      (tool-bar-mode   t)
+      (menu-bar-mode   nil)
+      (tool-bar-mode   nil)
       (scroll-bar-mode t))
   (progn
     (menu-bar-mode nil)
