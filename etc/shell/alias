@@ -81,6 +81,8 @@ alias_set rmrf 'rm -rf'
 
 #emacs alias_set
 alias_set e 'emacs'
+#emacs full screen
+alias_set me 'emacs -mm'
 #emacs en console
 alias_set enox 'emacs -nw'
 alias_set ne 'emacs -nw'
@@ -100,9 +102,9 @@ alias_set myip "wget http://checkip.dyndns.org/ -O - -o /dev/null | perl -e '<ST
 
 
 alias_set z "zsh"
-alias_set b "bash"
-alias_set k "ksh"
-alias_set t "tcsh"
+#alias_set b "bash"
+#alias_set k "ksh"
+#alias_set t "tcsh"
 
 alias_set psa 'ps ax'
 alias_set psu 'ps aux'
@@ -170,3 +172,7 @@ test -f ~/.config/ctafconf/etc/shell/alias.`uname` && source ~/.config/ctafconf/
 
 #protect ls against failure
 ls ~/.config/ctafconf 2>/dev/null >/dev/null || alias_unset ls
+
+### Ruby stuff here
+alias_set r rails
+alias_set b bundle
