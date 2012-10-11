@@ -79,7 +79,8 @@
 ;;(setq gud-tooltip-echo-area t)
 
 ;; kill trailing white space on save
-(add-hook 'write-file-hooks 'delete-trailing-whitespace)
+;; FIXME Lta
+;;(add-hook 'write-file-hooks 'delete-trailing-whitespace)
 
 ;;c/c++ : autoappend * when in /* */ comment
 (autoload 'blockcomment-mode         "block-comm" "" t)
