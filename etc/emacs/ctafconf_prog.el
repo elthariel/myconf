@@ -40,6 +40,7 @@
          ("\\.css$"             . css-mode)
          ("\\.cfm$"             . html-mode)
          ("\\.pl$"              . perl-mode)
+         ("Gemfile$"            . ruby-mode)
          ) auto-mode-alist))
 
 ;;shebang matching
@@ -269,6 +270,7 @@
 
 ;; Lta's Ruby and Rails config
 (require 'haml-mode)
+(require 'sass-mode)
 (require 'coffee-mode)
 
 ;;Display potential error in red
