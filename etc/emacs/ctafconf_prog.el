@@ -10,7 +10,6 @@
 (message ".")
 (message "ctafconf loading: PROG.EMACS")
 
-
 ;;file extension mode
 (setq auto-mode-alist
       (append
@@ -40,6 +39,7 @@
          ("\\.css$"             . css-mode)
          ("\\.cfm$"             . html-mode)
          ("\\.pl$"              . perl-mode)
+         ("\\.json$"            . js-mode)
          ("Gemfile$"            . ruby-mode)
          ) auto-mode-alist))
 
@@ -80,8 +80,7 @@
 ;;(setq gud-tooltip-echo-area t)
 
 ;; kill trailing white space on save
-;; FIXME Lta
-;;(add-hook 'write-file-hooks 'delete-trailing-whitespace)
+(add-hook 'write-file-hooks 'delete-trailing-whitespace)
 
 ;;c/c++ : autoappend * when in /* */ comment
 (autoload 'blockcomment-mode         "block-comm" "" t)
@@ -272,6 +271,21 @@
 (require 'haml-mode)
 (require 'sass-mode)
 (require 'coffee-mode)
+
+;;;; Coffee Mode configuration
+;; Enable tab mode by default and set tab width
+(defun lta-coffee-mode-hook ()
+  (message "Lta's config for 'coffee-mode.el'.")
+  (setq whitespace-action '(auto-cleanup)) ;; automatically clean up bad whitespace
+  (setq whitespace-style '(trailing space-before-tab indentation empty space-after-tab))
+  (whitespace-mode) ;; only show bad whitespace
+  (setq indent-tabs-mode nil)
+  (setq tab-width 2)
+)
+
+(add-hook 'coffee-mode-hook (lambda() (lta-coffee-mode-hook)))
+
+
 
 ;;Display potential error in red
 ;;PS: check for: if (bla);   and if (bla = bla)
