@@ -8,6 +8,11 @@
 theme='lta'
 file=`echo $1 | sed -e 's/:[0-9]\+:$//'`
 
-highlight -O xterm256 --config-file ~/.config/ctafconf/share/highlight/$theme.theme $file | less -r
+if [ -f $file ]
+then
+  highlight -O xterm256 --config-file ~/.config/ctafconf/share/highlight/$theme.theme $file | less -r
+else
+  echo "`basename $0`: $file doesn't exists or is not readable !"
+fi
 
 
