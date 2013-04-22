@@ -1,0 +1,13 @@
+#! /bin/sh
+
+#
+# This is a small tool to pipe an highlighted version of a file into
+# a less pager
+#
+
+theme='lta'
+file=`echo $1 | sed -e 's/:[0-9]\+:$//'`
+
+highlight -O xterm256 --config-file ~/.config/ctafconf/share/highlight/$theme.theme $file | less -r
+
+
