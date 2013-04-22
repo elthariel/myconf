@@ -40,7 +40,6 @@
          ("\\.cfm$"             . html-mode)
          ("\\.pl$"              . perl-mode)
          ("\\.json$"            . js-mode)
-         ("Gemfile$"            . ruby-mode)
          ) auto-mode-alist))
 
 ;;shebang matching
@@ -271,6 +270,15 @@
 (require 'haml-mode)
 (require 'sass-mode)
 (require 'coffee-mode)
+
+(add-to-list 'auto-mode-alist '("\\Gemfile\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\Gemfile\.lock\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\Vagrantfile\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.rabl\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.rake\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\Rakefile\\'" . ruby-mode))
+
+(add-to-list 'auto-mode-alist '("\\.hamlc\\'"         . haml-mode))
 
 ;;;; Coffee Mode configuration
 ;; Enable tab mode by default and set tab width
