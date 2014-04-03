@@ -40,6 +40,7 @@
          ("\\.cfm$"             . html-mode)
          ("\\.pl$"              . perl-mode)
          ("\\.json$"            . js-mode)
+         ("\\.pml$"              . xml-mode)
          ) auto-mode-alist))
 
 ;;shebang matching
@@ -99,6 +100,14 @@
 ;;provide the tiger mode
 (autoload 'tiger-mode "tiger" "major mode for tiger" t)
 (add-to-list 'auto-mode-alist '("\\.tig$" . tiger-mode))
+
+;;provide the go mode
+(autoload 'go-mode "go-mode" "major mode for go" t)
+(add-to-list 'auto-mode-alist '("\\.go$" . go-mode))
+
+;;provide the go mode
+(autoload 'julia-mode "julia-mode" "major mode for julia" t)
+(add-to-list 'auto-mode-alist '("\\.jl$" . julia-mode))
 
 ;;provide the lua mode
 (autoload 'lua-mode "lua-mode" "major mode for lua" t)
@@ -161,29 +170,6 @@
     )
 (ctafconf-semantic)
 
-(defun ctafconf-ropemacs ()
-  (condition-case err
-      (progn
-        (let ((newpypath (concat (getenv "PYTHONPATH")  ":" ctafconf-path "site-lisp/python/Pymacs")))
-          (setenv "PYTHONPATH" newpypath)
-          (message "PYTHONPATH set to: %s" newpypath)
-          )
-
-          (add-to-list 'load-path (concat ctafconf-path "site-lisp/python/Pymacs"))
-
-          (set 'pymacs-load-path (list (concat ctafconf-path "site-lisp/python/Pymacs")
-                                       (concat ctafconf-path "site-lisp/python/rope")
-                                       (concat ctafconf-path "site-lisp/python/ropemode")
-                                       (concat ctafconf-path "site-lisp/python/ropemacs")))
-          )
-        (require 'pymacs)
-        (pymacs-load "ropemacs" "rope-")
-        (setq ropemacs-guess-project  t)
-        (setq ropemacs-confirm-saving nil)
-    (error
-     (message "Cannot load ropemacs %s" (cdr err))))
-  )
-
 
 ;;very good completion (using semantic, etags, ...)
 (add-to-list 'load-path (concat ctafconf-path "site-lisp/company-0.5"))
@@ -228,11 +214,6 @@
       )
   (error
    (message "Cannot load cc-mode with qtenable %s" (cdr err))))
-
-;;weird, recall ropemacs setting after company (that use and load ropemacs)
-(setq ropemacs-guess-project  t)
-(setq ropemacs-confirm-saving nil)
-(setq ropemacs-enable-autoimport t)
 
 ;;provide ecb
 (defun ctafconf-ecb ()

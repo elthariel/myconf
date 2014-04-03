@@ -74,6 +74,18 @@ Files matching %s are discarded.
 
 LOGGER = logging.getLogger("replacer")
 
+def is_binary(filename):
+    """ Returns True if the file is binary
+
+    """
+    with open(filename, 'rb') as fp:
+        data = fp.read(1024)
+        if not data:
+            return False
+        if b'\0' in data:
+            return True
+        return False
+
 def recurse_file(opts, directory, action):
     """
     Recusively go do the subdirectories of the directory,
@@ -104,6 +116,8 @@ def recurse_file(opts, directory, action):
             recurse_file(opts, f, action)
         if os.path.isfile(f):
             if filter_out:
+                continue
+            if is_binary(f):
                 continue
             action(f)
 
@@ -179,9 +193,13 @@ def replace_in_file(opts, in_file, regexp, repl):
     Perfoms re.sub(regexp, repl, line) for each line in
     in_file
     """
-    in_fd = open(in_file, "r")
-    in_lines = in_fd.readlines()
-    in_fd.close()
+    in_lines = []
+    try:
+        with open(in_file, "r") as in_fd:
+            in_lines = in_fd.readlines()
+    except:
+        print("Cant open file: ", in_file)
+        return
 
     out_lines = in_lines[:]
     out_lines = [re.sub(regexp, repl, l) for l in in_lines]
@@ -272,7 +290,8 @@ def repl_main(opts, args):
     if not opts.get("go") and not opts.get("quiet"):
         print
         print("To apply change, run again:")
-        print("%s %s --go" % (os.path.basename(sys.argv[0]), ' '.join(sys.argv[1:])))
+        print("$ %s %s --go\n" % (os.path.basename(sys.argv[0]), ' '.join(sys.argv[1:])))
+        print("To backup altered files, add '--backup' to the above command line.")
         print
 
 
@@ -295,9 +314,6 @@ def main():
     option_parser.add_option("--backup",
         action = "store_true", dest = "backup",
         help = "Create a backup for each file. This is the default")
-    option_parser.add_option("--no-backup",
-        action = "store_false", dest = "backup",
-        help = "Do not create backups")
     option_parser.add_option("--go",
         action = "store_true", dest = "go",
         help = "Perform changes rather than just printing then")
@@ -323,7 +339,7 @@ def main():
     option_parser.set_defaults(
         no_hidden = True,
         no_filter = False,
-        backup    = True,
+        backup    = False,
         go        = False,
         color     = True,
         debug     = False,
@@ -352,5 +368,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
