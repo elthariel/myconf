@@ -89,6 +89,10 @@ prompt_ctaf_precmd() {
       psvar[1]="[$vcs_info_msg_0_]"
       ;;
   esac
+  RVM_PROMPT=`rvm-prompt 2>/dev/null`
+  if ! [ -z $RVM_PROMPT ] ; then
+    psvar[1]="$psvar[1][${PR_LIGHT_GREEN}$RVM_PROMPT${PR_NO_COLOUR}]"
+  fi
   if [ "$psvar[1]" != "" ] ; then
     psvar[1]="${PR_BG_PROMPT}${PR_FG_PROMPT}$psvar[1]${PR_NO_COLOUR}
 "
@@ -100,6 +104,7 @@ prompt_ctaf_precmd() {
   if ! [ -z $SCHROOT_COMMAND ] ; then
     psvar[2]="${PR_LIGHT_YELLOW}:SCHROOT${PR_NO_COLOUR}$psvar[2]"
   fi
+
 }
 
 
@@ -119,4 +124,3 @@ ${PR_BG_PROMPT}${PR_FG_PROMPT}z${PR_LIGHT_GREEN}%(!.#.$)${PR_NO_COLOUR} "
 }
 
 prompt_ctaf_setup "$@"
-
